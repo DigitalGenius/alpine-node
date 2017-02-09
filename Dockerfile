@@ -32,6 +32,7 @@ RUN apk add --no-cache bash curl make gcc g++ python linux-headers binutils-gold
   cd / && \
   if [ -x /usr/bin/npm ]; then \
     npm install -g npm@${NPM_VERSION} && \
+    npm install -g node-gyp && \
     find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf; \
   fi && \
   apk del curl make gcc g++ python linux-headers binutils-gold gnupg ${DEL_PKGS} && \
