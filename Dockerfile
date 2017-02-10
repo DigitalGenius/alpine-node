@@ -9,9 +9,9 @@ ARG NPM_VERSION
 ENV VERSION=${VERSION:-7.5.0} NPM_VERSION=${NPM_VERSION:-4}
 
 # For base builds
-ENV CONFIG_FLAGS="--fully-static" RM_DIRS=/usr/include
+ENV CONFIG_FLAGS="--fully-static" DEL_PKGS="libstdc++" RM_DIRS=/usr/include
 
-RUN apk add --no-cache bash curl make gcc g++ python-dev linux-headers binutils-gold gnupg libgcc libstdc++ && \
+RUN apk add --no-cache bash curl make gcc g++ python-dev linux-headers binutils-gold gnupg libgcc libstdc++ musl-dev && \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys \
     9554F04D7259F04124DE6B476D5A82AC7E37093B \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -36,6 +36,7 @@ RUN apk add --no-cache bash curl make gcc g++ python-dev linux-headers binutils-
     npm install -g node-sass && \
     find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf; \
   fi && \
+  apk del linux-headers binutils-gold gnupg ${DEL_PKGS} && \
   rm -rf ${RM_DIRS} /node-${VERSION}* /usr/share/man /tmp/* /var/cache/apk/* \
     /root/.gnupg /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html \
     /usr/lib/node_modules/npm/scripts
