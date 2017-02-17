@@ -11,7 +11,7 @@ ENV VERSION=${VERSION:-7.5.0} NPM_VERSION=${NPM_VERSION:-4}
 # For base builds
 ENV CONFIG_FLAGS="--fully-static" DEL_PKGS="libstdc++" RM_DIRS=/usr/include
 
-RUN apk add --no-cache bash curl make gcc g++ python-dev linux-headers binutils-gold gnupg libgcc libstdc++ musl-dev && \
+RUN apk add --no-cache bash curl git make gcc g++ python-dev linux-headers binutils-gold gnupg libgcc libstdc++ musl-dev && \
   gpg --keyserver ha.pool.sks-keyservers.net --recv-keys \
     9554F04D7259F04124DE6B476D5A82AC7E37093B \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
